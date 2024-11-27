@@ -238,14 +238,14 @@ public class PetApiTest extends BaseTest {
     }
 
 
-//    @Test
-//    void testFindPetByInvalidId() throws IOException {
-//        String invalidId = "fdfdsfsdf"; // Неверный ID
-//        HttpGet request = new HttpGet(BASE_URL + "/pet/" + invalidId);
-//
-//        HttpResponse response = httpClient.execute(request);
-//        assertEquals(400, response.getCode());
-//    }
+    @Test
+    void testFindPetByInvalidId() throws IOException {
+        String invalidId = "fdfdsfsdf"; // Неверный ID
+        HttpGet request = new HttpGet(BASE_URL + "/pet/" + invalidId);
+
+        HttpResponse response = httpClient.execute(request);
+        assertEquals(400, response.getCode());
+    }
 
     @Test
     void testFindNonExistingPetById() throws IOException {
@@ -340,7 +340,7 @@ public class PetApiTest extends BaseTest {
 
         CloseableHttpResponse response = httpClient.execute(request);
         assertEquals(200, response.getCode());
-        response.close();
+
 
         Pet gettingPet = parser.getObjectFromResponse(response, Pet.class);
         comparePets(gettingPet, pet);
@@ -353,7 +353,7 @@ public class PetApiTest extends BaseTest {
         CloseableHttpResponse responseUpdate = httpClient.execute(requestUpdate);
         Pet updatedPet = parser.getObjectFromResponse(responseUpdate, Pet.class);
         comparePets(gettingPet, updatedPet);
-        responseUpdate.close();
+
 
         deletePetById(pet.getId());
         HttpGet requestGetDeleted = new HttpGet(BASE_URL + "/pet/" + pet.getId());
